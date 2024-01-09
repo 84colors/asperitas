@@ -2,7 +2,7 @@
 
 const isLocal = true;
 
-console.log("jeelo from desktop??");
+console.log("jeelo from desktop!!");
 
 // // ----------------------------
 // Toggle Search
@@ -65,31 +65,6 @@ $(searchIClose).on("click", function () {
 });
 
 // ----------------------------
-//Video showreel
-// ----------------------------
-// const video = $(".video-fluid video");
-const video = $(".video-fluid").find("video")[0];
-video.pause();
-
-//Intro Video play
-function scrollVideo() {
-    let tlVideo = gsap.timeline({
-        scrollTrigger: {
-            trigger: ".video-fluid",
-            start: "top 60%",
-            end: "bottom 20%",
-            // markers: "true",
-            ease: "none",
-            onEnter: () => video.play(),
-            onEnterBack: () => video.play(),
-            onLeave: () => video.pause(),
-            onLeaveBack: () => video.pause(),
-        },
-    });
-}
-scrollVideo();
-
-// ----------------------------
 //Swiper slider
 // ----------------------------
 
@@ -97,6 +72,7 @@ $(".slider_container").each(function () {
     const sliderTimeline = $(this).find(".swiper.is-timeline")[0];
     const sliderVideo = $(this).find(".swiper.is-video")[0];
 
+    console.log("slider");
     const swiperTimeline = new Swiper(sliderTimeline, {
         slidesPerView: "auto",
         speed: 700,
@@ -171,3 +147,30 @@ $(".slider-timeline-all").each(function () {
     );
     swiperSlideTimeline.controller.control = swiperSlideImgs;
 });
+
+// ----------------------------
+//Video showreel
+// ----------------------------
+// const video = $(".video-fluid video");
+const video = $(".video-fluid").find("video")[0];
+if (video.length) {
+    video.pause();
+}
+
+//Intro Video play
+function scrollVideo() {
+    let tlVideo = gsap.timeline({
+        scrollTrigger: {
+            trigger: ".video-fluid",
+            start: "top 60%",
+            end: "bottom 20%",
+            // markers: "true",
+            ease: "none",
+            onEnter: () => video.play(),
+            onEnterBack: () => video.play(),
+            onLeave: () => video.pause(),
+            onLeaveBack: () => video.pause(),
+        },
+    });
+}
+scrollVideo();
