@@ -64,7 +64,30 @@ $(searchIClose).on("click", function () {
     searchIcon.css("pointer-events", "auto");
 });
 
-////
+// ----------------------------
+//Video showreel
+// ----------------------------
+// const video = $(".video-fluid video");
+const video = $(".video-fluid").find("video")[0];
+video.pause();
+
+//Intro Video play
+function scrollVideo() {
+    let tlVideo = gsap.timeline({
+        scrollTrigger: {
+            trigger: ".video-fluid",
+            start: "top 60%",
+            end: "bottom 20%",
+            // markers: "true",
+            ease: "none",
+            onEnter: () => video.play(),
+            onEnterBack: () => video.play(),
+            onLeave: () => video.pause(),
+            onLeaveBack: () => video.pause(),
+        },
+    });
+}
+scrollVideo();
 
 // ----------------------------
 //Swiper slider
