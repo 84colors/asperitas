@@ -11,6 +11,11 @@ const searchInputWrap = $(".search-field-wrap");
 const searchIcon = $(".search-wrap .icon-search");
 const searchIClose = $(".search-wrap .icon-search-close");
 const siteNav = $(".nav-links");
+const navSearch = $(".nav-search");
+const navWrap = $(".mobile-nav");
+
+//Set width of search box init
+// navSearch.css("width", "0px");
 
 //Set input size init
 const tlSearch = gsap.timeline({
@@ -20,12 +25,20 @@ const tlSearch = gsap.timeline({
 
 tlSearch.to(searchInputWrap, {
     width: "100%",
-    duration: 0.6,
+    duration: 0.4,
 });
 tlSearch.to(
     searchIcon,
     {
         opacity: 0,
+        duration: 0.3,
+    },
+    "<"
+);
+tlSearch.to(
+    navSearch,
+    {
+        width: 400,
         duration: 0.3,
     },
     "<"
@@ -42,23 +55,25 @@ tlSearch.to(
     searchIClose,
     {
         opacity: 1,
-        duration: 0.3,
+        duration: 0.2,
     },
     "<0.1"
 );
 
 //On click of search icon, resize input and show close btn, fade nav, add focus
 $(searchIcon).on("click", function () {
-    tlSearch.timeScale(1);
+    navWrap.css("justify-content", "flex-end");
     tlSearch.restart();
+    siteNav.hide();
     searchInput.focus();
     $(this).css("pointer-events", "none");
 });
 
 //On click of close btn, reverse timeline, clear value
 $(searchIClose).on("click", function () {
-    tlSearch.timeScale(1.5);
+    navWrap.css("justify-content", "space-between");
     tlSearch.reverse();
+    siteNav.show();
     searchInput.val("");
     searchIcon.css("pointer-events", "auto");
 });
@@ -105,7 +120,7 @@ $(".slider_container").each(function () {
     });
 });
 
-//
+// ------------------------
 // Slider timeline
 //
 $(".slider-timeline-all").each(function () {
