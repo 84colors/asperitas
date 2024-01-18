@@ -46,7 +46,7 @@ tlSearch.to(
 tlSearch.to(
     siteNav,
     {
-        opacity: 0.5,
+        opacity: 0,
         duration: 0.5,
     },
     0
@@ -62,18 +62,14 @@ tlSearch.to(
 
 //On click of search icon, resize input and show close btn, fade nav, add focus
 $(searchIcon).on("click", function () {
-    navWrap.css("justify-content", "flex-end");
     tlSearch.restart();
-    siteNav.hide();
     searchInput.focus();
     $(this).css("pointer-events", "none");
 });
 
 //On click of close btn, reverse timeline, clear value
 $(searchIClose).on("click", function () {
-    navWrap.css("justify-content", "space-between");
     tlSearch.reverse();
-    siteNav.show();
     searchInput.val("");
     searchIcon.css("pointer-events", "auto");
 });
