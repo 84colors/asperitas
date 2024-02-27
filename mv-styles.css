@@ -37,8 +37,20 @@ model-viewer {
     background-position: center;
 }
 
+.btn-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding-bottom: 20px;
+}
+
 .btn-zoom {
-    background: #121111e8
+    background: #121111e2
         url("data:image/svg+xml,%3Csvg width='14' height='11' viewBox='0 0 14 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.36364 1L2 5.5M2 5.5L6.36364 10M2 5.5H14' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E%0A");
     background-size: 16px;
     background-repeat: no-repeat;
@@ -50,16 +62,30 @@ model-viewer {
     border: 1px solid #ffffff7a;
     padding: 12px 24px 12px 44px;
     border-radius: 20px;
-    position: absolute;
+    /* position: absolute;
     bottom: 60px;
-    left: 50%;
-    margin-left: -100px;
+    left: 50%; */
+    /* margin-left: -100px; */
     transition: all 0.3s ease-in-out;
+    width: 130px;
+}
+
+.btn-close {
+    background: #121111e8
+        url("data:image/svg+xml,%3Csvg width='11' height='20' viewBox='0 0 11 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='1' y='7' width='9' height='12' rx='1' stroke='white'/%3E%3Cpath d='M8.61938 3.32423C8.79845 3.53444 9.11402 3.55969 9.32423 3.38062C9.53444 3.20155 9.55969 2.88598 9.38062 2.67577L8.61938 3.32423ZM7.96461 1.78454L8.34523 1.46031L7.96461 1.78454ZM1.67208 6.57839L6.87535 2.05564L6.21933 1.3009L1.01606 5.82365L1.67208 6.57839ZM7.58399 2.10878L8.61938 3.32423L9.38062 2.67577L8.34523 1.46031L7.58399 2.10878ZM0.500096 6.95572L0.500028 9.49996L1.50003 9.49999L1.5001 6.95574L0.500096 6.95572ZM6.87535 2.05564C7.08524 1.8732 7.40366 1.89708 7.58399 2.10878L8.34523 1.46031C7.80423 0.825222 6.84899 0.753596 6.21933 1.3009L6.87535 2.05564ZM1.01606 5.82365C0.68831 6.10853 0.500108 6.52146 0.500096 6.95572L1.5001 6.95574C1.5001 6.81099 1.56283 6.67335 1.67208 6.57839L1.01606 5.82365Z' fill='white'/%3E%3C/svg%3E%0A")
+        no-repeat;
+    background-position: 18px 8px;
+}
+.btn-open {
+    background: #121111e8
+        url("data:image/svg+xml,%3Csvg width='11' height='16' viewBox='0 0 11 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='1' y='1' width='9' height='14' rx='1' stroke='white'/%3E%3Cline x1='1' y1='4.5' x2='10' y2='4.5' stroke='white'/%3E%3C/svg%3E%0A")
+        no-repeat;
+    background-position: 18px 10px;
 }
 
 .btn-zoom:hover {
     border: 1px solid #ffffff;
-    background-position: 12px 13px;
+    /* background-position: 12px 13px; */
 }
 
 .Hotspot:not([data-visible]) {
