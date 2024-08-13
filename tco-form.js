@@ -1,15 +1,15 @@
 "use strict";
 // const isLocalForm = true;
 
-console.log("from desktop form!!");
+console.log("from desktop form???");
 
 // // ----------------------------
 // Get variables
 // // ----------------------------
-let inputPower = $("#tco-power");
-let inputServersNum = $("#tco-servers-num");
-let inputCapacity = $("#tco-total-capacity");
-let inputElCost = $("#tco-el-cost");
+let inPower = $("#tco-power");
+let inServersNum = $("#tco-servers-num");
+let inCapacity = $("#tco-total-capacity");
+let inElCost = $("#tco-el-cost");
 
 let btnCalculate = $("#tco-submit");
 
@@ -24,22 +24,46 @@ let outSavingsTotalPer = $("#tco-overview-savings-per-total");
 let donutTotalPer = $("#tco-overview-donut .donut-percent");
 let donutTotalCosts = $("#tco-overview-donut .donut-segment");
 
+//Test if input has value
+inPower.addEventListener("input", updateValue);
+inServersNum.addEventListener("input", updateValue);
+
+console.log("yep");
+
+function updateValue(e) {
+    console.log("yep");
+    console.log(e.target.value);
+}
+
+//Global values
+const global_pueAir = 1.4;
+const global_pueImm = 1.22;
+let global_elCost = 0.2;
+let global_elImpact = 258;
+const global_fanLosses = 0.15;
+
 // // ----------------------------
 // TCO form
 // // ----------------------------
 
-inputElCost.val(3);
+inElCost.val(global_elCost);
+
+// disable inputs if first 2 are have active
+// on click
 
 // btnCalculate.addEventListener("click", calculateCost);
 $(btnCalculate).on("click", function () {
     // console.log("stuff");
     //Do some error handling stuff here
+    //check for NaN for inputs
+    //add error divs under inputs in row
+
     calculateCost();
 });
 
 function calculateCost() {
     let outSavingsTotalTenYText =
-        parseFloat(inputElCost.val()) + parseFloat(inputServersNum.val());
+        parseFloat(inElCost.val()) + parseFloat(inServersNum.val());
     // console.log(outSavingsTotalTenYText);
     outSavingsTotalTenY.text(`-€` + outSavingsTotalTenYText);
 
@@ -54,7 +78,7 @@ function calculateCost() {
 }
 
 function calculateTip() {
-    console.log(inputElCost.val());
+    console.log(inElCost.val());
     // let amount = parseFloat(document.getElementById("amount").value);
     // let persons = parseInt(document.getElementById("persons").value);
     // let service = parseFloat(document.getElementById("services").value);
