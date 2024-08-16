@@ -1,15 +1,27 @@
 "use strict";
-// const isLocalForm = true;
+const isLocalForm = true;
 
 console.log("from desktop form???");
 
 // // ----------------------------
-// Get variables
+// Set variables
 // // ----------------------------
-let inPower = $("#tco-power");
-let inServersNum = $("#tco-servers-num");
-let inCapacity = $("#tco-total-capacity");
+
+//Global values
+const global_pueAir = 1.4;
+const global_pueImm = 1.22;
+let global_elCost = 0.4;
+let global_elImpact = 258;
+const global_fanLosses = 0.15;
+
+const inPower = $("#tco-power");
+let inPowerVal = inPower.val();
+const inServers = $("#tco-servers-num");
+let inServersVal = inServers.val();
+const inCapacity = $("#tco-total-capacity");
+let inCapacityVal = inCapacity.val();
 let inElCost = $("#tco-el-cost");
+let inElCostVal = inElCost.val(global_elCost);
 
 let btnCalculate = $("#tco-submit");
 
@@ -25,22 +37,44 @@ let donutTotalPer = $("#tco-overview-donut .donut-percent");
 let donutTotalCosts = $("#tco-overview-donut .donut-segment");
 
 //Test if input has value
-inPower.addEventListener("input", updateValue);
-inServersNum.addEventListener("input", updateValue);
+inPower.on("blur", function () {
+    inPowerVal = $(this).val();
 
-console.log("yep");
+    return inPowerVal;
+});
+// inServers.on("blur", updateValServers);
+// inCapacity.on("blur", updateValCapacity);
+// inElCost.on("blur", updateValCosts);
 
-function updateValue(e) {
-    console.log("yep");
-    console.log(e.target.value);
+// function updateValPower() {
+//     inPowerVal = $(this).val();
+// }
+
+console.log(`yo`);
+
+function updateVal() {
+    let valueThis = $(this).val();
+    if (inPowerVal.length === 0 || inServersVal.length === 0) {
+        console.log(`persona Ops`);
+    } else {
+        console.log(`persona IT`);
+    }
+    // if (valueThis.length === 0) {
+    //     console.log(`is empty`);
+    // } else {
+    //     console.log(valueThis);
+    // }
 }
 
-//Global values
-const global_pueAir = 1.4;
-const global_pueImm = 1.22;
-let global_elCost = 0.2;
-let global_elImpact = 258;
-const global_fanLosses = 0.15;
+//Select persona
+let userPersona = `userOps`;
+let setUserPersona = function () {
+    userPersona = `userIT`;
+    console.log(userPersona);
+};
+
+setUserPersona();
+// console.log(userPersona);
 
 // // ----------------------------
 // TCO form
