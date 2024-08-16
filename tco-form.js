@@ -1,5 +1,5 @@
 "use strict";
-const isLocalForm = true;
+// const isLocalForm = true;
 
 console.log("from desktop form???");
 
@@ -14,6 +14,7 @@ let global_elCost = 0.4;
 let global_elImpact = 258;
 const global_fanLosses = 0.15;
 
+const userInputs = $("[userInput = 'true']");
 const inPower = $("#tco-power");
 let inPowerVal = inPower.val();
 const inServers = $("#tco-servers-num");
@@ -36,11 +37,15 @@ let outSavingsTotalPer = $("#tco-overview-savings-per-total");
 let donutTotalPer = $("#tco-overview-donut .donut-percent");
 let donutTotalCosts = $("#tco-overview-donut .donut-segment");
 
-//Test if input has value
-inPower.on("blur", function () {
-    inPowerVal = $(this).val();
+// // ----------------------------
+// TCO form
+// // ----------------------------
 
-    return inPowerVal;
+// ------
+// UserInput change
+// ------
+userInputs.on("blur", function () {
+    console.log("user input!");
 });
 // inServers.on("blur", updateValServers);
 // inCapacity.on("blur", updateValCapacity);
@@ -50,7 +55,7 @@ inPower.on("blur", function () {
 //     inPowerVal = $(this).val();
 // }
 
-console.log(`yo`);
+// console.log(`yo`);
 
 function updateVal() {
     let valueThis = $(this).val();
@@ -74,22 +79,19 @@ let setUserPersona = function () {
 };
 
 setUserPersona();
-// console.log(userPersona);
-
-// // ----------------------------
-// TCO form
-// // ----------------------------
 
 inElCost.val(global_elCost);
 
 // disable inputs if first 2 are have active
 // on click
 
+// ----------
+//CALCULATE
+// ----------
 // btnCalculate.addEventListener("click", calculateCost);
 $(btnCalculate).on("click", function () {
     // console.log("stuff");
     //Do some error handling stuff here
-    //check for NaN for inputs
     //add error divs under inputs in row
 
     calculateCost();
