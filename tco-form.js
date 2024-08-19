@@ -1,7 +1,7 @@
 "use strict";
 // const isLocalForm = true;
 
-console.log("from desktop form?");
+console.log("from desktop form :D");
 
 // // ----------------------------
 // Set variables
@@ -43,7 +43,7 @@ inElCost.val(global_elCost);
 $(btnCalculate).addClass("disabled");
 
 // ------
-// UserInput change
+// FORM UserInput change
 // ------
 userInputs.on("blur", function () {
     //If any of the fields are full
@@ -113,11 +113,10 @@ userInputs.on("blur", function () {
 });
 
 // ----------
-//CALCULATE
+//CALCULATE VALUES
 // ----------
 // btnCalculate.addEventListener("click", calculateCost);
 $(btnCalculate).on("click", function () {
-    // console.log(userPersona);
     // calculateCost();
     if (userPersona !== "none") {
         calculateCost();
@@ -125,81 +124,142 @@ $(btnCalculate).on("click", function () {
     }
 });
 
+// Update text values
+function tcoUpdateVals(target, tcoAir, tcoImm, tcoSavings, tcoPerc, unit) {
+    $(target)
+        .find(`[tcoCost = "air"]`)
+        .eq(0)
+        .text(tcoAir.toLocaleString() + unit);
+    $(target)
+        .find(`[tcoCost = "imm"]`)
+        .eq(0)
+        .text(tcoImm.toLocaleString() + unit);
+    $(target)
+        .find(`[tcoCost = "savings"]`)
+        .eq(0)
+        .text(tcoSavings.toLocaleString() + unit);
+    $(target)
+        .find(`[tcoCost = "bar"]`)
+        .eq(0)
+        .css("width", `${100 - tcoPerc}` + `%`);
+    $(target)
+        .find(`.donut-percent`)
+        .eq(0)
+        .text(tcoPerc + `%`);
+    $(target)
+        .find(`.donut-segment`)
+        .eq(0)
+        .attr("stroke-dasharray", `${tcoPerc} ${100 - tcoPerc}`);
+}
+
 function calculateCost() {
     let outSavingsTotalTenYText =
         parseFloat(inElCost.val()) + parseFloat(inServersNum.val());
 
-    // console.log(outSavingsTotalTenYText);
-    // outSavingsTotalTenY.text(`-€` + outSavingsTotalTenYText);
-
     //For IT Persona
     // ----------------
-    //POWER
+    //POWER PUE
     // ----------------
-    let tcoCriticalPowerAir =
-        (parseFloat(inServerPower.val()) * parseFloat(inServersNum.val())) /
-        1000000;
-    let tcoUtilityPowerAir = tcoCriticalPowerAir * global_pueAir;
-    let tcoOverheadPowerAir = tcoUtilityPowerAir - tcoCriticalPowerAir;
+    let tcoCriticalPowerAir,
+        tcoUtilityPowerAir,
+        tcoCriticalPowerImm,
+        tcoUtilityPowerImm;
+    if (userPersona == "IT") {
+        tcoCriticalPowerAir =
+            (parseFloat(inServerPower.val()) * parseFloat(inServersNum.val())) /
+            1000000;
+        tcoUtilityPowerAir = tcoCriticalPowerAir * global_pueAir;
 
-    let tcoCriticalPowerImm = tcoCriticalPowerAir;
-    let tcoUtilityPowerImm = tcoCriticalPowerAir * global_pueImm;
+        tcoCriticalPowerImm = tcoCriticalPowerAir;
+        tcoUtilityPowerImm = tcoCriticalPowerAir * global_pueImm;
+    } else {
+        tcoCriticalPowerAir = parseFloat(inCapacity.val()) / global_pueAir;
+        tcoUtilityPowerAir = inCapacity.val();
+        tcoCriticalPowerImm = parseFloat(inCapacity.val()) / global_pueImm;
+        tcoUtilityPowerImm = inCapacity.val();
+    }
+
+    let tcoOverheadPowerAir = tcoUtilityPowerAir - tcoCriticalPowerAir;
     let tcoOverheadPowerImm = tcoUtilityPowerImm - tcoCriticalPowerImm;
 
-    console.log(`critical power Air: ${tcoCriticalPowerAir}`);
-    console.log(`utility power Air: ${tcoUtilityPowerAir}`);
-    console.log(`overhead power Air: ${tcoOverheadPowerAir.toFixed(2)}`);
+    //Calculate savings and percentage
+    let tcoPUESavings = tcoOverheadPowerAir - tcoOverheadPowerImm;
+    let tcoPUEPerc = Math.ceil((tcoPUESavings / tcoOverheadPowerAir) * 100);
 
-    console.log(`critical power Imm: ${tcoCriticalPowerImm}`);
-    console.log(`utility power Imm: ${tcoUtilityPowerImm}`);
-    console.log(`overhead power Imm: ${tcoOverheadPowerImm.toFixed(2)}`);
+    // Update text values
+    tcoUpdateVals(
+        `#panelPue`,
+        tcoOverheadPowerAir,
+        tcoOverheadPowerImm,
+        tcoPUESavings,
+        tcoPUEPerc,
+        ``
+    );
 
     // -------
     //ENERGY $(`#panelEnergy`)
     // -------
+
     let tcoEnergyAir = Math.ceil(tcoUtilityPowerAir * 1000 * 8760);
     let tcoEnergyImm = Math.ceil(
         tcoUtilityPowerImm * 1000 * 8760 * (1 - global_fanLosses)
     );
+    //Calculate savings and percentage
     let tcoEnergySavings = tcoEnergyAir - tcoEnergyImm;
     let tcoEnergyPerc = Math.ceil((tcoEnergySavings / tcoEnergyAir) * 100);
-    // tcoEnergyPerc.toFixed();
-    $("#panelEnergy #tco-energy-air").text(`€` + tcoEnergyAir.toLocaleString());
-    $("#panelEnergy #tco-energy-val").text(`€` + tcoEnergyImm.toLocaleString());
 
-    $("#panelEnergy .donut-percent").text(tcoEnergyPerc + `%`);
-    $("#panelEnergy .donut-segment").attr(
-        "stroke-dasharray",
-        `${tcoEnergyPerc} ${100 - tcoEnergyPerc}`
-    );
-
-    $("#panelEnergy #tco-energy-bar").css("width", tcoEnergyPerc + `%`);
-    $("#panelEnergy #tco-energy-savings").text(
-        `-€` + tcoEnergySavings.toLocaleString()
+    // Update text values
+    tcoUpdateVals(
+        `#panelEnergy`,
+        tcoEnergyAir,
+        tcoEnergyImm,
+        tcoEnergySavings,
+        tcoEnergyPerc,
+        ``
     );
 
     // -------
-    //OPEX $(`#panelEnergy`)
+    //OPEX $(`#panelOpex`)
     // -------
-    let tcoOpexAir = Math.ceil(tcoUtilityPowerAir * 1000 * 8760);
+    let tcoOpexAir = Math.ceil((tcoEnergyAir * inElCost.val()) / 1000);
     let tcoOpexImm = Math.ceil(
-        tcoUtilityPowerImm * 1000 * 8760 * (1 - global_fanLosses)
+        ((tcoEnergyImm * inElCost.val()) / 1000) * (1 - global_fanLosses)
     );
+
+    //Calculate savings and percentage
     let tcoOpexSavings = tcoOpexAir - tcoOpexImm;
     let tcoOpexPerc = Math.ceil((tcoOpexSavings / tcoOpexAir) * 100);
-    // tcoOpexPerc.toFixed();
-    $("#panelOpex #tco-Opex-air").text(`€` + tcoOpexAir.toLocaleString());
-    $("#panelOpex #tco-Opex-val").text(`€` + tcoOpexImm.toLocaleString());
 
-    $("#panelOpex .donut-percent").text(tcoOpexPerc + `%`);
-    $("#panelOpex .donut-segment").attr(
-        "stroke-dasharray",
-        `${tcoOpexPerc} ${100 - tcoOpexPerc}`
+    // Update text values
+    tcoUpdateVals(
+        `#panelOpex`,
+        tcoOpexAir,
+        tcoOpexImm,
+        tcoOpexSavings,
+        tcoOpexPerc,
+        ``
     );
 
-    $("#panelOpex #tco-Opex-bar").css("width", tcoOpexPerc + `%`);
-    $("#panelOpex #tco-Opex-savings").text(
-        `-€` + tcoOpexSavings.toLocaleString()
+    // -------
+    //CO2 $(`#panelCO2`)
+    // -------
+    let tcoCO2Air = Math.ceil((tcoEnergyAir * global_elCO2Impact) / 1000000);
+    let tcoCO2Imm = Math.ceil(
+        ((tcoEnergyImm * global_elCO2Impact) / 1000000) * (1 - global_fanLosses)
+    );
+
+    //Calculate savings and percentage
+    let tcoCO2Savings = tcoCO2Air - tcoCO2Imm;
+    let tcoCO2Perc = Math.ceil((tcoCO2Savings / tcoCO2Air) * 100);
+
+    // Update text values
+    tcoUpdateVals(
+        `#panelCO2`,
+        tcoCO2Air,
+        tcoCO2Imm,
+        tcoCO2Savings,
+        tcoCO2Perc,
+        ``
     );
 
     // -------
@@ -207,7 +267,7 @@ function calculateCost() {
     // -------
     let outTotalAir = 100 / 5;
     let outTotalCosts = 1000 * 10;
-    outTotalImmersedBar.css("width", outTotalAir + `%`);
+    // outTotalImmersedBar.css("width", outTotalAir + `%`);
     // outSavingsTotalPer.text(outTotalAir + `% `);
 
     //Donut Text
@@ -219,27 +279,4 @@ function calculateCost() {
     $(`#textOverview`).html(
         `<h2 class="heading-style-h4">You could be saving <em>${outTotalAir}% </em>with Asperitas,<br><em>€${outTotalCosts}</em> over 10 Years</h2>`
     );
-}
-
-function calculateTip() {
-    console.log(inElCost.val());
-    // let amount = parseFloat(document.getElementById("amount").value);
-    // let persons = parseInt(document.getElementById("persons").value);
-    // let service = parseFloat(document.getElementById("services").value);
-    // if (
-    //     isNaN(amount) ||
-    //     isNaN(persons) ||
-    //     isNaN(service) ||
-    //     service === 0 ||
-    //     persons === 0
-    // ) {
-    //     alert("Please enter valid values");
-    //     return;
-    // }
-    // let total = (amount * service) / persons;
-    // total = total.toFixed(2);
-    // document.getElementById("tip-amount").classList.remove("hidden");
-    // document.getElementById(
-    //     "tip-amount"
-    // ).innerHTML = `Tip Amount: ${total} ₹ each`;
 }
