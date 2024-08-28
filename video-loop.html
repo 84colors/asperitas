@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video loop</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 40px;
+        }
+
+        video {
+            width: 800px;
+            border-radius: 20px;
+        }
+
+        .video-btn-wrap {
+            display: flex;
+            gap: 20px;
+            padding-top: 40px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Video loop</h1>
+    <video id="video-loop" class="video-full" playsinline="" muted="" data-wf-ignore="true" data-object-fit="cover">
+        <source src="video-loop.mp4" data-wf-ignore="true">
+    </video>
+    <div class="video-btn-wrap">
+        <button id="play" class="video-btn">Play</button>
+        <button id="pause" class="video-btn">Pause</button>
+        <button id="loop1" class="video-btn">Loop 01</button>
+        <button id="loop2" class="video-btn">Loop 02</button>
+        <button id="loop3" class="video-btn">Loop 03</button>
+    </div>
+
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+            integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+            crossorigin="anonymous"></script>
+    <script src="video-loop.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 "use strict";
-// const isLocalForm = true;
+const isLocalForm = true;
 
 console.log("from desktop form :D");
 
@@ -54,7 +54,7 @@ userInputs.on("blur", function () {
         $(inCapacity).attr("disabled", true);
         $(inCapacity).attr(
             "title",
-            `Remove input from Power and Servers to use this field`
+            `Remove values from "Typical Server Power" and "#Servers" to use this input`
         );
         //enable calculate button
         $(btnCalculate).removeClass("disabled");
