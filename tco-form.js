@@ -127,6 +127,9 @@ $(btnCalculate).on("click", function () {
     if (userPersona !== "none") {
         calculateCost();
         $("#btn-download").removeClass("disabled");
+        $("#btn-download").click(function () {
+            $window.print();
+        });
     }
 });
 
