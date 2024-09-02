@@ -1,15 +1,21 @@
 "use strict";
 // const isLocalForm = true;
 
-console.log("from desktop form :D");
+console.log("from desktop form :!!");
 
 // // ----------------------------
 // Set variables
 // // ----------------------------
 
+//Set PUE cost
+let global_pueAirVal = 1.4;
+let inPue = $("#tco-air-pue");
+inPue.val(global_pueAirVal);
+
+let global_pueAir = inPue.val();
+let global_pueImm = global_pueAir - 0.18;
+
 //Global values
-const global_pueAir = 1.4;
-const global_pueImm = 1.22;
 let global_elCost = 0.2;
 const global_elCO2Impact = 258;
 const global_fanLosses = 0.15;
@@ -277,6 +283,8 @@ function calculateCost() {
 
     //Overview text
     $(`#textOverview`).html(
-        `<h2 class="heading-style-h4">You could be saving <em>${outTotalAir}% </em>with Asperitas,<br><em>€${outTotalCosts}</em> over 10 Years</h2>`
+        `<h2 class="heading-style-h4">You could be saving <em>${tcoOpexPerc}% </em>with Asperitas,<br><em>€${
+            tcoCO2Savings * 10
+        }</em> over 10 Years</h2>`
     );
 }
