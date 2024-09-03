@@ -42,8 +42,8 @@ jQuery(document).ready(function ($) {
         // video.get(0).currentTime = 1;
         // video.get(0).play();
         // restart video if current time is longer than
-        if (videoCurrentTime >= 3.5) {
-            video.get(0).currentTime = 1.5;
+        if (videoCurrentTime >= 9.9) {
+            video.get(0).currentTime = 0;
             video.get(0).play();
         }
     }
