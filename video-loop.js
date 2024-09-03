@@ -29,7 +29,7 @@ jQuery(document).ready(function ($) {
             playStartLoop();
             //hide all modals
         } else if (looping == `is-1`) {
-            playLoop(1, 3, 6);
+            playLoop(1, 12, 14);
         } else if (looping == `is-2`) {
             playLoop(1, 6, 9);
         } else if (looping == `is-3`) {
@@ -59,12 +59,13 @@ jQuery(document).ready(function ($) {
 
     //Dots video
     $(dot1).on("click", function () {
-        video.get(0).currentTime = 1;
+        video.get(0).currentTime = 9.9;
         video.get(0).play();
         let dotID = $(this).attr(`s-energy-dot`);
         looping = dotID; // get from this data attr
         //hide modals, show matching modal. Toggle is hidden
         $(modals).removeClass(`is-hidden`);
+        $(`.s-energy-anim_dots`).addClass(`is-hidden`);
         $(`[s-energy-panel = "${dotID}"]`).removeClass(`is-hidden`);
     });
     $(dot2).on("click", function () {
@@ -83,8 +84,14 @@ jQuery(document).ready(function ($) {
     $(`.s-energy-anim_panel-close`).on(`click`, function () {
         //parent remove class
         $(this).parent(`[s-energy-panel]`).addClass(`is-hidden`);
+        video.get(0).currentTime = 1;
+        video.get(0).play();
+        looping == `start`;
+
         //parent get attr
         //if attr is-1, play from to once, check with if the current time is over then set looping == `start`
+
+        $(`.s-energy-anim_dots`).removeClass(`is-hidden`);
     });
 });
 
