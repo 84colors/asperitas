@@ -127,8 +127,9 @@ $(btnCalculate).on("click", function () {
     if (userPersona !== "none") {
         calculateCost();
         $("#btn-download").removeClass("disabled");
-        $("#btn-download").click(function () {
-            $window.print();
+        $("#btn-download").on(`click`, function () {
+            window.print();
+            console.log("print!!1");
         });
     }
 });
@@ -246,7 +247,7 @@ function calculateCost() {
         tcoOpexImm,
         tcoOpexSavings,
         tcoOpexPerc,
-        ``
+        ` k$/yr`
     );
 
     // -------
@@ -286,8 +287,10 @@ function calculateCost() {
 
     //Overview text
     $(`#textOverview`).html(
-        `<h2 class="heading-style-h4">You could be saving <em>${tcoOpexPerc}% </em>with Asperitas,<br><em>€${
-            tcoCO2Savings * 10
-        }</em> over 10 Years</h2>`
+        `<h2 class="heading-style-h4">You could be saving <em>${tcoOpexPerc}% </em>with Asperitas,<br><em>$${(
+            tcoOpexSavings *
+            10 *
+            1000
+        ).toLocaleString()}</em> over 10 Years</h2>`
     );
 }
