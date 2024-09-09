@@ -22,76 +22,101 @@ jQuery(document).ready(function ($) {
     //Set event to get current video time. Only runs when the video is playing
     video.get(0).addEventListener("timeupdate", (event) => {
         videoCurrentTime = video.get(0).currentTime;
-        console.log(videoCurrentTime);
+        // console.log(videoCurrentTime);
 
         //Play start loop if loop is set to start
         if (looping == `start`) {
             playStartLoop();
-            //hide all modals
         } else if (looping == `is-1`) {
-            playLoop(1, 12, 14);
+            playLoop(10.79, 14.14);
         } else if (looping == `is-2`) {
-            playLoop(1, 6, 9);
+            playLoop(16.52, 19.22);
         } else if (looping == `is-3`) {
-            playLoop(1, 6, 9);
+            playLoop(21.55, 23.76);
+        } else if (looping == `is-1-reversed`) {
+            playReverseLoop(14.14, 16.52);
+        } else if (looping == `is-2-reversed`) {
+            playReverseLoop(14.14, 16.52);
+        } else if (looping == `is-3-reversed`) {
+            playReverseLoop(14.14, 16.52);
         }
     });
 
-    //Play initial in loop
+    //Play initial in loop, restart video if current time is longer than
     function playStartLoop() {
-        // video.get(0).currentTime = 1;
-        // video.get(0).play();
-        // restart video if current time is longer than
-        if (videoCurrentTime >= 9.9) {
+        if (videoCurrentTime >= 9.22) {
             video.get(0).currentTime = 0;
             video.get(0).play();
         }
     }
 
     // Play loop with transition
-    function playLoop(startTransTime, startTime, endTime) {
-        // video.get(0).currentTime = startTransTime;
+    function playLoop(startTime, endTime) {
         if (videoCurrentTime >= endTime) {
             video.get(0).currentTime = startTime;
             video.get(0).play();
         }
     }
 
+    // Play reverse loop with transition
+    function playReverseLoop(startTime, endTime) {
+        // videoCurrentTime = startTime;
+        // video.get(0).play();
+
+        // if (videoCurrentTime >= endTime) {
+        //     looping = `start`;
+        // }
+
+        looping = `start`;
+
+        //zoom out logic must be in an if with the looping start at the end
+        //play video from this point - startTime
+        //when this point is greater than endPoint, set looping to start.
+    }
+
     //Dots video
     $(dot1).on("click", function () {
-        video.get(0).currentTime = 9.9;
+        video.get(0).currentTime = 9.65;
         video.get(0).play();
-        let dotID = $(this).attr(`s-energy-dot`);
-        looping = dotID; // get from this data attr
-        //hide modals, show matching modal. Toggle is hidden
-        $(modals).removeClass(`is-hidden`);
-        $(`.s-energy-anim_dots`).addClass(`is-hidden`);
-        $(`[s-energy-panel = "${dotID}"]`).removeClass(`is-hidden`);
+        looping = `is-1`;
+        showModal();
     });
     $(dot2).on("click", function () {
-        video.get(0).currentTime = 2;
+        video.get(0).currentTime = 15.11;
         video.get(0).play();
         looping = `is-2`;
-        // video.get(0).play();
+        showModal();
     });
     $(dot3).on("click", function () {
-        video.get(0).currentTime = 3;
+        video.get(0).currentTime = 20.12;
         video.get(0).play();
         looping = `is-3`;
+        showModal();
     });
 
-    //Close modal set looping == `start`, play rest of loop to zoom back in. Or reverse? No, just add a copy in AE  If modal 1...
+    //Show modals
+    function showModal() {
+        $(modals).addClass(`is-hidden`);
+        $(`.s-energy-anim_dots`).addClass(`is-hidden`);
+        //add a delay of 1s or smth, event...umm..
+        setTimeout(() => {
+            $(`[s-energy-panel = "${looping}"]`).removeClass(`is-hidden`);
+        }, 500);
+    }
+
+    //Close btn
     $(`.s-energy-anim_panel-close`).on(`click`, function () {
-        //parent remove class
+        //parent remove class, hide modal
         $(this).parent(`[s-energy-panel]`).addClass(`is-hidden`);
-        video.get(0).currentTime = 1;
-        video.get(0).play();
-        looping == `start`;
-
-        //parent get attr
-        //if attr is-1, play from to once, check with if the current time is over then set looping == `start`
-
         $(`.s-energy-anim_dots`).removeClass(`is-hidden`);
+        if (looping == `is-1`) {
+            looping = `is-1-reversed`;
+        } else if (looping == `is-2`) {
+            looping = `is-2-reversed`;
+        } else if (looping == `is-3`) {
+            looping = `is-3-reversed`;
+        }
+        console.log(looping);
     });
 });
 
