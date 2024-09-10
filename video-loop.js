@@ -34,11 +34,32 @@ jQuery(document).ready(function ($) {
         } else if (looping == `is-3`) {
             playLoop(21.55, 23.76);
         } else if (looping == `is-1-reversed`) {
-            playReverseLoop(14.14, 16.52);
+            if (video.get(0).currentTime < 14.14) {
+                video.get(0).currentTime = 14.24;
+                video.get(0).play();
+            } else if (video.get(0).currentTime >= 15.09) {
+                video.get(0).currentTime = 0;
+                video.get(0).play();
+                looping = `start`;
+            }
         } else if (looping == `is-2-reversed`) {
-            playReverseLoop(14.14, 16.52);
+            if (video.get(0).currentTime < 19.1) {
+                video.get(0).currentTime = 19.15;
+                video.get(0).play();
+            } else if (video.get(0).currentTime >= 20.12) {
+                video.get(0).currentTime = 0;
+                video.get(0).play();
+                looping = `start`;
+            }
         } else if (looping == `is-3-reversed`) {
-            playReverseLoop(14.14, 16.52);
+            if (video.get(0).currentTime < 23.81) {
+                video.get(0).currentTime = 24.0;
+                video.get(0).play();
+            } else if (video.get(0).currentTime >= 24.3) {
+                video.get(0).currentTime = 0;
+                video.get(0).play();
+                looping = `start`;
+            }
         }
     });
 
@@ -60,18 +81,12 @@ jQuery(document).ready(function ($) {
 
     // Play reverse loop with transition
     function playReverseLoop(startTime, endTime) {
-        // videoCurrentTime = startTime;
-        // video.get(0).play();
-
-        // if (videoCurrentTime >= endTime) {
-        //     looping = `start`;
-        // }
-
-        looping = `start`;
-
-        //zoom out logic must be in an if with the looping start at the end
-        //play video from this point - startTime
-        //when this point is greater than endPoint, set looping to start.
+        if (video.get(0).currentTime >= endTime) {
+            video.get(0).currentTime = 0;
+            video.get(0).play();
+            looping = `start`;
+            console.log(video.get(0).currentTime);
+        }
     }
 
     //Dots video
