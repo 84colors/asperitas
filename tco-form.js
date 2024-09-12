@@ -13,7 +13,7 @@ let inPue = $("#tco-air-pue");
 inPue.val(global_pueAirVal);
 
 let global_pueAir = inPue.val();
-let global_pueImm = global_pueAir - 0.18;
+let global_pueImm = global_pueAir - 0.2;
 
 //Global values
 let global_elCost = 0.2;
@@ -211,9 +211,7 @@ function calculateCost() {
     // -------
 
     let tcoEnergyAir = Math.ceil(tcoUtilityPowerAir * 1000 * 8760);
-    let tcoEnergyImm = Math.ceil(
-        tcoUtilityPowerImm * 1000 * 8760 * (1 - global_fanLosses)
-    );
+    let tcoEnergyImm = Math.ceil(tcoUtilityPowerImm * 1000 * 8760);
     //Calculate savings and percentage
     let tcoEnergySavings = tcoEnergyAir - tcoEnergyImm;
     let tcoEnergyPerc = Math.ceil((tcoEnergySavings / tcoEnergyAir) * 100);
@@ -254,9 +252,7 @@ function calculateCost() {
     //CO2 $(`#panelCO2`)
     // -------
     let tcoCO2Air = Math.ceil((tcoEnergyAir * global_elCO2Impact) / 1000000);
-    let tcoCO2Imm = Math.ceil(
-        ((tcoEnergyImm * global_elCO2Impact) / 1000000) * (1 - global_fanLosses)
-    );
+    let tcoCO2Imm = Math.ceil((tcoEnergyImm * global_elCO2Impact) / 1000000);
 
     //Calculate savings and percentage
     let tcoCO2Savings = tcoCO2Air - tcoCO2Imm;
