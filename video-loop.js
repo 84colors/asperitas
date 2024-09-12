@@ -35,18 +35,18 @@ jQuery(document).ready(function ($) {
             playLoop(21.55, 23.76);
         } else if (looping == `is-1-reversed`) {
             if (video.get(0).currentTime < 14.14) {
-                video.get(0).currentTime = 14.24;
+                video.get(0).currentTime = 14.35;
                 video.get(0).play();
-            } else if (video.get(0).currentTime >= 15.09) {
+            } else if (video.get(0).currentTime >= 15.29) {
                 video.get(0).currentTime = 0;
                 video.get(0).play();
                 looping = `start`;
             }
         } else if (looping == `is-2-reversed`) {
-            if (video.get(0).currentTime < 19.1) {
-                video.get(0).currentTime = 19.15;
+            if (video.get(0).currentTime < 19.15) {
+                video.get(0).currentTime = 19.25;
                 video.get(0).play();
-            } else if (video.get(0).currentTime >= 20.12) {
+            } else if (video.get(0).currentTime >= 20.22) {
                 video.get(0).currentTime = 0;
                 video.get(0).play();
                 looping = `start`;
@@ -55,7 +55,7 @@ jQuery(document).ready(function ($) {
             if (video.get(0).currentTime < 23.81) {
                 video.get(0).currentTime = 24.0;
                 video.get(0).play();
-            } else if (video.get(0).currentTime >= 24.3) {
+            } else if (video.get(0).currentTime >= 24.38) {
                 video.get(0).currentTime = 0;
                 video.get(0).play();
                 looping = `start`;
@@ -97,13 +97,13 @@ jQuery(document).ready(function ($) {
         showModal();
     });
     $(dot2).on("click", function () {
-        video.get(0).currentTime = 15.11;
+        video.get(0).currentTime = 15.41;
         video.get(0).play();
         looping = `is-2`;
         showModal();
     });
     $(dot3).on("click", function () {
-        video.get(0).currentTime = 20.12;
+        video.get(0).currentTime = 20.42;
         video.get(0).play();
         looping = `is-3`;
         showModal();
