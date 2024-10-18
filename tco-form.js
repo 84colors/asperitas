@@ -1,7 +1,7 @@
 "use strict";
 // const isLocalForm = true;
 
-console.log("from desktop form :!!");
+// console.log("from desktop form :!!");
 
 // // ----------------------------
 // Set variables
@@ -11,9 +11,6 @@ console.log("from desktop form :!!");
 let global_pueAirVal = 1.4;
 let inPue = $("#tco-air-pue");
 inPue.val(global_pueAirVal);
-
-let global_pueAir = inPue.val();
-let global_pueImm = global_pueAir - 0.2;
 
 //Global values
 let global_elCost = 0.2;
@@ -114,8 +111,6 @@ userInputs.on("blur", function () {
         //Disable calculate button
         $(btnCalculate).addClass("disabled");
     }
-
-    console.log(userPersona);
 });
 
 // ----------
@@ -124,6 +119,7 @@ userInputs.on("blur", function () {
 // btnCalculate.addEventListener("click", calculateCost);
 $(btnCalculate).on("click", function () {
     // calculateCost();
+
     if (userPersona !== "none") {
         calculateCost();
         $("#btn-download").removeClass("disabled");
@@ -132,6 +128,8 @@ $(btnCalculate).on("click", function () {
             console.log("print!!1");
         });
     }
+
+    // console.log(global_pueImm);
 });
 
 // Update text values
@@ -165,6 +163,9 @@ function tcoUpdateVals(target, tcoAir, tcoImm, tcoSavings, tcoPerc, unit) {
 function calculateCost() {
     let outSavingsTotalTenYText =
         parseFloat(inElCost.val()) + parseFloat(inServersNum.val());
+
+    let global_pueAir = inPue.val();
+    let global_pueImm = inPue.val() - 0.2;
 
     //For IT Persona
     // ----------------
@@ -289,4 +290,8 @@ function calculateCost() {
             1000
         ).toLocaleString()}</em> over 10 Years</h2>`
     );
+
+    //Log
+    console.log(global_pueAir);
+    console.log(global_pueImm);
 }
