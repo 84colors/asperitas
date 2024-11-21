@@ -1,7 +1,7 @@
 "use strict";
 // const isLocalForm = true;
 
-// console.log("from desktop form :!!");
+// console.log("from desktop form :2");
 
 // // ----------------------------
 // Set variables
@@ -212,7 +212,8 @@ function calculateCost() {
     // -------
 
     let tcoEnergyAir = Math.ceil(tcoUtilityPowerAir * 1000 * 8760);
-    let tcoEnergyImm = Math.ceil(tcoUtilityPowerImm * 1000 * 8760);
+    let tcoEnergyImm =
+        Math.ceil(tcoUtilityPowerImm * 1000 * 8760) * (1 - global_fanLosses);
     //Calculate savings and percentage
     let tcoEnergySavings = tcoEnergyAir - tcoEnergyImm;
     let tcoEnergyPerc = Math.ceil((tcoEnergySavings / tcoEnergyAir) * 100);
@@ -231,9 +232,7 @@ function calculateCost() {
     //OPEX $(`#panelOpex`)
     // -------
     let tcoOpexAir = Math.ceil((tcoEnergyAir * inElCost.val()) / 1000);
-    let tcoOpexImm = Math.ceil(
-        ((tcoEnergyImm * inElCost.val()) / 1000) * (1 - global_fanLosses)
-    );
+    let tcoOpexImm = Math.ceil((tcoEnergyImm * inElCost.val()) / 1000);
 
     //Calculate savings and percentage
     let tcoOpexSavings = tcoOpexAir - tcoOpexImm;
@@ -292,6 +291,6 @@ function calculateCost() {
     );
 
     //Log
-    console.log(global_pueAir);
-    console.log(global_pueImm);
+    console.log(tcoEnergyImm);
+    // console.log(tcoEnergyImm);
 }
