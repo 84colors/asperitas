@@ -1,7 +1,7 @@
 "use strict";
-const isLocal = true;
+// const isLocal = true;
 
-console.log("jeelo from desktop!!");
+console.log("jeelo from desktopss!!");
 
 // // ----------------------------
 // Toggle Search
@@ -163,7 +163,7 @@ $(".slider-timeline-all").each(function () {
 // ----------------------------
 // const video = $(".video-fluid video");
 const video = $(".video-fluid").find("video")[0];
-if (video.length) {
+if ($(".video-fluid video").length) {
     video.pause();
 }
 
@@ -187,7 +187,7 @@ scrollVideo();
 
 // Splash hover effect
 $(".splash").ripples({
-    resolution: 512,
-    dropRadius: 20,
-    perturbance: 0.04,
+    resolution: 768,
+    dropRadius: 15,
+    perturbance: 0.03,
 });
