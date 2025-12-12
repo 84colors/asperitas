@@ -78,85 +78,9 @@ $(searchIClose).on("click", function () {
 //Swiper slider
 // ----------------------------
 
-$(".slider_container").each(function () {
-    const sliderTimeline = $(this).find(".swiper.is-timeline")[0];
-    const sliderVideo = $(this).find(".swiper.is-video")[0];
-
-    console.log("slider");
-    const swiperTimeline = new Swiper(sliderTimeline, {
-        slidesPerView: "auto",
-        speed: 700,
-        // centeredSlides: true,
-        initialSlide: 0,
-        // loop: true,
-        // spaceBetween: 40,
-        navigation: {
-            nextEl: $(this).find(".arrow-next")[0],
-            prevEl: $(this).find(".arrow-prev")[0],
-            disabledClass: "is-disabled",
-        },
-        slideActiveClass: "is-active",
-        slideDuplicateActiveClass: "is-active",
-    });
-
-    const swiperVideo = new Swiper(sliderVideo, {
-        slidesPerView: "auto",
-        speed: 700,
-        // centeredSlides: true,
-        initialSlide: 1,
-        // loop: true,
-        // spaceBetween: 40,
-        navigation: {
-            nextEl: $(this).find(".arrow-next")[0],
-            prevEl: $(this).find(".arrow-prev")[0],
-            disabledClass: "is-disabled",
-        },
-        slideActiveClass: "is-active",
-        slideDuplicateActiveClass: "is-active",
-    });
-});
-
 // ------------------------
 // Slider timeline
 //
-$(".slider-timeline-all").each(function () {
-    const swiperSlideImgs = new Swiper(
-        $(this).find("[swiper-timeline-imgs]")[0],
-        {
-            slidesPerView: 1,
-            speed: 500,
-            effect: "fade",
-            loop: false,
-            navigation: {
-                nextEl: $(this).find("[arrow-next]")[0],
-                prevEl: $(this).find("[arrow-prev]")[0],
-                disabledClass: "is-disabled",
-            },
-            fadeEffect: {
-                crossFade: true,
-            },
-        }
-    );
-
-    const swiperSlideTimeline = new Swiper(
-        $(this).find("[swiper-timeline-text]")[0],
-        {
-            slidesPerView: "auto",
-            speed: 500,
-            loop: false,
-            slideToClickedSlide: true,
-            control: "[swiper-timeline-imgs]",
-            navigation: {
-                nextEl: $(this).find("[arrow-next]")[0],
-                prevEl: $(this).find("[arrow-prev]")[0],
-                disabledClass: "is-disabled",
-            },
-            slideActiveClass: "is-active",
-            slideDuplicateActiveClass: "is-active",
-        }
-    );
-    swiperSlideTimeline.controller.control = swiperSlideImgs;
-});
 
 // ----------------------------
 //Video showreel
