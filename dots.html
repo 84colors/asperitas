@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: #000000;">
+    <canvas id="dotCanvas"></canvas>
+
+    <script src="dots.js"></script>
+    <script>
+        createDotCanvas(document.getElementById("dotCanvas"), {
+            space: 16,
+            dotSize: 1,
+            bgColor: "#000000",
+            dotColorRgb: [0, 88, 182],
+            hoverColorRgb: [225, 71, 71],
+            waveSpeed: 0.06,
+            waveScale: 0.5,
+            alphaMin: -0.01,
+            alphaMax: 1,
+            blinkSpeed: 0.5,
+            hoverRadius: 120,
+            pulseSpeed: 300,
+            pulseThickness: 40
+        });
+    </script>
+
+</body>
+</html>
