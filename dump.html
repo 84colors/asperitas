@@ -1,0 +1,33 @@
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+
+<script>
+window.addEventListener("load", function () {
+  const swiperSolutions = new Swiper(".swiper-cases", {
+    effect: "slide",
+    centeredSlides: false,
+    //autoHeight: false,
+    autoHeight: true,
+    slidesPerView: "auto", // Changed from 4 to 'auto'
+    spaceBetween: 2, // Gap between slides in pixels
+    slidesPerGroup: 1,
+    loop: true,
+    speed: 600,
+    freeMode: false, // Keeps snapping behavior
+    pagination: {
+      el: ".swiper-pagination.swiper-cases-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".slider-cases-right",
+      prevEl: ".slider-cases-left",
+    },
+  });
+
+  document.querySelectorAll(".arrow-left, .arrow-right").forEach((arrow) => {
+    arrow.addEventListener("click", function (e) {
+      e.preventDefault();
+    });
+  });
+});
+</script>
