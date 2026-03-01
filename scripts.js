@@ -1,7 +1,7 @@
 "use strict";
-// const isLocal = true;
+const isLocal = true;
 
-console.log("jeelo from desktopss!!");
+console.log("jeelo from desktop!!");
 
 // // ----------------------------
 // Toggle Search
@@ -141,6 +141,82 @@ faqContainer.each(function () {
             $(this).toggleClass("is-active");
             faqContentImg.toggleClass("is-active");
             faqContent.toggleClass("is-active");
+        });
+    });
+});
+
+// FAQ TOGGLES
+// -------------------
+// use index for everything, get index on click
+// Tabs
+let tabContainer = $("[tabs='tabs-container']");
+
+// Activate on scroll
+$(tabContainer).each(function () {
+    let items = $(this).find("[tabs='tabs-items'] > div");
+    let content = $(this).find("[faq='faq-item-content']");
+    let arrow = $(this).find(".toggle-item_icon #plus");
+    let heading = $(this).find(".toggle-list_item-link");
+    let img = $(this).find(".toggle-item_img");
+
+    let prevIndex = -1;
+
+    gsap.defaults({ duration: 0.5, ease: "power2.out" });
+    gsap.set(content, { height: 0 });
+
+    function triggerTabs(index) {
+        // CLOSE STATE
+        if (prevIndex > -1) {
+            // videos.eq(prevIndex).hide();
+            gsap.to(content.eq(prevIndex), { height: 0 });
+            gsap.to(arrow.eq(prevIndex), { rotationZ: 0 }, 0);
+            // gsap.to(heading.eq(prevIndex), { color: "#fff" }, 0);
+            // gsap.to(
+            //     number.eq(prevIndex),
+            //     { color: "#88939f", borderColor: "#2d3a47" },
+            //     0
+            // );
+            // gsap.to(border.eq(prevIndex), { width: 0 }, 0);
+        }
+        // OPEN STATE
+        // videos.eq(index).show();
+        gsap.to(content.eq(index), { height: "auto" });
+        gsap.to(arrow.eq(index), { rotationZ: 90 }, 0);
+        // gsap.to(heading.eq(index), { color: "#54b6b1" }, 0);
+        // gsap.to(number.eq(index), { color: "#fff", borderColor: "#54b6b1" }, 0);
+        // gsap.to(border.eq(index), { width: "100%" }, "<0.1");
+        // videos.eq(index).find("video")[0].play();
+
+        // console.log(videos.eq(index));
+
+        // videos.eq(index).click();
+        // track previous
+        prevIndex = index;
+    }
+
+    //On scroll here? scroll trigger function onEnter
+    //make a new timeline
+    function scrollToTabs() {
+        let tlTabs = gsap.timeline({
+            scrollTrigger: {
+                trigger: "[tabs='tabs-container']",
+                start: "top 20%",
+                // end: "bottom 50%",
+                // markers: "true",
+                ease: "none",
+                onEnter: () => triggerTabs(0),
+            },
+        });
+    }
+    scrollToTabs();
+
+    // triggerTabs(0);
+
+    items.each(function (index) {
+        let itemIndex = index;
+        // let link = $(this).find(".tab_trigger");
+        $(this).on("click", function () {
+            if (itemIndex !== prevIndex) triggerTabs(itemIndex);
         });
     });
 });
